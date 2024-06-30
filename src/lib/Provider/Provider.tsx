@@ -12,3 +12,9 @@ const Provider = ({ children }: { children: ReactNode }) => {
 };
 
 export default Provider;
+// git init
+// git add README.md
+// git commit -m "first commit"
+// git branch -M main
+// git remote add origin https://github.com/1104Anikbarua/next-portfolio-dashboard.git
+// git push -u origin main
