@@ -1,9 +1,10 @@
-// Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-// initialize an empty api service that we'll inject endpoints into later as needed
-export const emptySplitApi = createApi({
-  reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
+import { axiosBaseQuery } from "@/helpers/axios/axios";
+import { createApi } from "@reduxjs/toolkit/query/react";
+export const baseApi = createApi({
+  reducerPath: "user",
+  baseQuery: axiosBaseQuery({
+    baseUrl: "http://localhost:5000/api/v1",
+  }),
   endpoints: () => ({}),
+  tagTypes: ["user"],
 });
