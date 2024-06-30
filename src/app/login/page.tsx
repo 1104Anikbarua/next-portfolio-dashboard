@@ -39,7 +39,7 @@ const Login = () => {
         //set token in local storage
         setUserToken(res.data.accessToken);
         //redirect to homepage
-        router.push("/");
+        router.push("/dashboard/blog/add-blog");
         setLoading(false);
       } else {
         setLoading(false);

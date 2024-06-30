@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
     console.log({ response });
     const responseObject = {
       data: response.data,
-      meta: response.data.meta,
+      // meta: response.data.meta,
     };
     console.log(responseObject);
     return responseObject;

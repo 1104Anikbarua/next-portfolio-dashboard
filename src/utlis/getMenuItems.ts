@@ -14,7 +14,7 @@ export const generateMenutItems = () => {
   const menuItems: IMenuItems[] = [
     {
       title: "Dashboard",
-      path: ``,
+      path: `blog`,
       icon: DashboardIcon,
     },
     {
@@ -24,12 +24,12 @@ export const generateMenutItems = () => {
     },
     {
       title: "Manage Blog",
-      path: `blog/update-blog`,
+      path: `blog/manage-blog`,
       icon: SystemUpdateAltIcon,
     },
     {
       title: "Delete Blog",
-      path: `blog/remove-blog`,
+      path: `blog/delete-blog`,
       icon: DeleteSweepIcon,
     },
     {
@@ -39,12 +39,12 @@ export const generateMenutItems = () => {
     },
     {
       title: "Manage Education",
-      path: `education/update-education`,
+      path: `education/manage-education`,
       icon: SystemUpdateAltIcon,
     },
     {
       title: "Delete Education",
-      path: `education/remove-education`,
+      path: `education/delete-education`,
       icon: DeleteSweepIcon,
     },
     {
@@ -54,12 +54,12 @@ export const generateMenutItems = () => {
     },
     {
       title: "Manage Skill",
-      path: `skill/update-skill`,
+      path: `skill/manage-skill`,
       icon: SystemUpdateAltIcon,
     },
     {
       title: "Delete Skill",
-      path: `skill/remove-skill`,
+      path: `skill/delete-skill`,
       icon: DeleteSweepIcon,
     },
     {
@@ -69,12 +69,12 @@ export const generateMenutItems = () => {
     },
     {
       title: "Manage Project",
-      path: `project/update-project`,
+      path: `project/manage-project`,
       icon: SystemUpdateAltIcon,
     },
     {
       title: "Delete Project",
-      path: `project/remove-project`,
+      path: `project/delete-project`,
       icon: DeleteSweepIcon,
     },
     {
@@ -84,12 +84,12 @@ export const generateMenutItems = () => {
     },
     {
       title: "Manage Experience",
-      path: `experience/update-experience`,
+      path: `experience/manage-experience`,
       icon: SystemUpdateAltIcon,
     },
     {
       title: "Delete Experience",
-      path: `experience/remove-experience`,
+      path: `experience/delete-experience`,
       icon: DeleteSweepIcon,
     },
   ];

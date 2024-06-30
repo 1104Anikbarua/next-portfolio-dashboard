@@ -11,13 +11,15 @@ import {
   Container,
   Stack,
   styled,
-  Avatar,
   Badge,
+  Button,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardSidebar from "../DashboardSidebar/DashboardSidebar";
-// import { useGetMeQuery } from "@/redux/features/user/userApi";
+import { useRouter } from "next/navigation";
+import { isUserLoggedIn } from "@/services/auth.services";
+import { signOutUser } from "@/serverActions/signOutUser";
 const drawerWidth = 240;
 
 interface Props {
@@ -53,10 +55,6 @@ export default function DashboardLayout(props: Props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  // get user profile api
-  //   const { data, isLoading } = useGetMeQuery({});
-  //   const user = data?.response?.data;
-  //
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -85,6 +83,16 @@ export default function DashboardLayout(props: Props) {
       },
     },
   }));
+
+  const router = useRouter();
+  const isUserLogin = isUserLoggedIn();
+  // user logout functionlity
+  const hanldeLogout = () => {
+    console.log("click");
+    signOutUser();
+    router.push("/login"); //send back to login page
+    router.refresh(); //refresh the page
+  };
   return (
     <Container>
       <Box sx={{ display: "flex" }}>
@@ -131,13 +139,14 @@ export default function DashboardLayout(props: Props) {
               >
                 <Typography component={"div"}></Typography>
                 <Typography component={"div"}>
-                  <StyledBadge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                    variant="dot"
+                  <Button
+                    sx={{ display: { xs: "none", sm: "inline-block" } }}
+                    onClick={() => hanldeLogout()}
+                    size="small"
+                    color="error"
                   >
-                    {/* <Avatar alt="Remy Sharp" src={user?.profilePhoto} /> */}
-                  </StyledBadge>
+                    Logout
+                  </Button>
                 </Typography>
               </Stack>
               {/* sm hidden avatar badge */}
@@ -146,9 +155,7 @@ export default function DashboardLayout(props: Props) {
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 variant="dot"
                 sx={{ display: { xs: "inherit", sm: "none" } }}
-              >
-                {/* <Avatar alt="Remy Sharp" src={user?.profilePhoto} /> */}
-              </StyledBadge>
+              ></StyledBadge>
             </Stack>
           </Toolbar>
         </AppBar>
