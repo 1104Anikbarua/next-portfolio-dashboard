@@ -20,7 +20,6 @@ const Login = () => {
   const router = useRouter();
   const handleLoginUser: SubmitHandler<FieldValues> = async (values) => {
     setLoading(true);
-    //
     const toastId = toast.loading("This may take a moment", {
       duration: 2000,
       position: "top-center",
@@ -129,7 +128,7 @@ const Login = () => {
               <LoadingButton
                 type="submit"
                 size="small"
-                // loading={loading}
+                loading={loading}
                 variant="contained"
                 color="success"
               >
