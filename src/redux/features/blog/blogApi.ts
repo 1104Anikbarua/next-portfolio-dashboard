@@ -12,9 +12,8 @@ export const blogApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IReduxResponse<IBlog[]>) => {
-        console.log(response);
         return {
-          response: response.data,
+          response: response?.data,
         };
       },
       providesTags: ["blogs"],
@@ -22,9 +21,14 @@ export const blogApi = baseApi.injectEndpoints({
     //get blogs end here
     //get blog start here
     getBlog: build.query({
-      query: (id) => {
+      query: ({ id }) => {
         return {
           url: `/blogs/${id}`,
+        };
+      },
+      transformResponse: (response: IReduxResponse<IBlog>) => {
+        return {
+          response: response?.data,
         };
       },
     }),
@@ -39,7 +43,6 @@ export const blogApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IReduxResponse<IBlog>) => {
-        console.log(response);
         return {
           response,
         };
@@ -49,20 +52,24 @@ export const blogApi = baseApi.injectEndpoints({
     // add blog ends here
     //update blog start here
     setBlog: build.mutation({
-      query: (data) => {
-        console.log(data);
+      query: ({ id, ...data }) => {
         return {
-          url: `/blogs/set-blog/${data}`,
+          url: `/blogs/set-blog/${id}`,
           method: "PATCH",
           data,
         };
       },
+      transformResponse: (response: IReduxResponse<IBlog>) => {
+        return {
+          response,
+        };
+      },
+      invalidatesTags: ["blogs"],
     }),
     //update blog ends here
     // remove blog start here
     removeBlog: build.mutation({
       query: (id) => {
-        console.log(id);
         return {
           url: `/blogs/remove-blog/${id}`,
           method: "DELETE",
@@ -78,4 +85,5 @@ export const {
   useGetBlogsQuery,
   useRemoveBlogMutation,
   useSetBlogMutation,
+  useGetBlogQuery,
 } = blogApi;

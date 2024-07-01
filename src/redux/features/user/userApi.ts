@@ -13,7 +13,7 @@ const userApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: IReduxResponse<IUser>) => {
         return {
-          response: response,
+          response: response.data,
         };
       },
       providesTags: ["user"],
