@@ -30,12 +30,12 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   // @ts-ignore
   function (response) {
-    console.log({ response });
+    // console.log({ response });
     const responseObject = {
       data: response.data,
       // meta: response.data.meta,
     };
-    console.log(responseObject);
+    // console.log(responseObject);
     return responseObject;
   },
   async function (error) {

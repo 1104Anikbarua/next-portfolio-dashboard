@@ -1,5 +1,8 @@
 "use client";
-import { useGetBlogQuery } from "@/redux/features/blog/blogApi";
+import {
+  useGetBlogQuery,
+  useRemoveBlogMutation,
+} from "@/redux/features/blog/blogApi";
 import {
   Box,
   Container,
@@ -39,7 +42,7 @@ const ViewBlog = ({
   if (error || userError) {
     return <Typography color="error">Failed to load data</Typography>;
   }
-  console.log(blog);
+  // console.log(blog);
   return (
     <Container>
       {/* component title  */}
@@ -81,7 +84,39 @@ export const MediaCard = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [copied, setCopied] = React.useState(false);
+  const [launch, setLaunch] = React.useState(false);
 
+  const [removeBlog, { isLoading }] = useRemoveBlogMutation();
+  // open modal
+  const handleClickOpen = () => {
+    setLaunch(true);
+  };
+  // close modal
+  const handleClose = () => {
+    setLaunch(false);
+  };
+
+  const handleConfirm = async () => {
+    // Handle delete action here
+    const toastId = toast.loading("please wait this may take a few minutes", {
+      duration: 2000,
+      position: "top-center",
+    });
+    try {
+      const res = await removeBlog(blog?.id).unwrap();
+      console.log(res);
+      if (res?.response?.success) {
+        toast.success(res?.response?.message, {
+          duration: 2000,
+          position: "top-center",
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLaunch(false);
+  };
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
@@ -89,12 +124,7 @@ export const MediaCard = ({
     });
   };
   const open = Boolean(anchorEl);
-  //redirect to the edit blog route
-  const router = useRouter();
-  const handleRedirect = (id: string) => {
-    router.push(`manage-blog/${id}`);
-  };
-  //redirect to the edit blog route
+
   // open social share menu
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -209,11 +239,23 @@ export const MediaCard = ({
             Edit
           </Link>
         </Button>
-        <Button startIcon={<DeleteSweepIcon />} color="error" size="small">
+        <Button
+          onClick={handleClickOpen}
+          startIcon={<DeleteSweepIcon />}
+          color="error"
+          size="small"
+        >
           Delete
         </Button>
       </CardActions>
       {/* blog edit and delte option  */}
+      {/* confirm delete modal  */}
+      <ConfirmDialog
+        launch={launch}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+      />
+      {/* confirm delete modal  */}
     </Card>
   );
 };
@@ -226,7 +268,7 @@ import { IBlog } from "@/types/blog.types";
 import { IUser } from "@/types/user.types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import ManageBlogSkeleton from "@/components/Ui/Skeleton/ManageBlogSkeleton";
-import { useRouter } from "next/navigation";
+
 export const ResponsiveTypography = ({ blog }: { blog: IBlog | undefined }) => {
   const theme = useTheme();
 
@@ -278,6 +320,8 @@ import {
   RedditShareButton,
 } from "react-share";
 import Link from "next/link";
+import ConfirmDialog from "@/components/Ui/Dialog/Dialog";
+import { toast } from "sonner";
 export function FadeMenu({
   anchorEl,
   setAnchorEl,
@@ -302,7 +346,7 @@ export function FadeMenu({
   };
 
   const url = `${window.location.origin}/blog/${blogUrl}`;
-  console.log(url);
+
   return (
     <div>
       <Menu

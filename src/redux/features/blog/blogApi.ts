@@ -22,17 +22,18 @@ export const blogApi = baseApi.injectEndpoints({
     //get blog start here
     getBlog: build.query({
       query: ({ id }) => {
-        console.log(id);
+        // console.log(id);
         return {
           url: `/blogs/${id}`,
         };
       },
       transformResponse: (response: IReduxResponse<IBlog>) => {
-        console.log(response);
+        // console.log(response);
         return {
           response: response?.data,
         };
       },
+      providesTags: ["blogs"],
     }),
     //get blog start here
     // add blog start here
@@ -72,11 +73,19 @@ export const blogApi = baseApi.injectEndpoints({
     // remove blog start here
     removeBlog: build.mutation({
       query: (id) => {
+        console.log(id);
         return {
           url: `/blogs/remove-blog/${id}`,
           method: "DELETE",
         };
       },
+      transformResponse: (response: IReduxResponse<IBlog>) => {
+        console.log(response);
+        return {
+          response,
+        };
+      },
+      invalidatesTags: ["blogs"],
     }),
     // remove blog ends here
   }),

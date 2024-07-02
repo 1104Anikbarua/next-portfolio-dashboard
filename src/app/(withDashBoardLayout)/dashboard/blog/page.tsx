@@ -50,7 +50,11 @@ const Blogs = () => {
       {/* blog card start  */}
       <Stack rowGap={2}>
         {blogs?.map((blog, index) => (
-          <Link href={`blog/${blog.id}`} style={{ textDecoration: "none" }}>
+          <Link
+            href={`blog/${blog.id}`}
+            style={{ textDecoration: "none" }}
+            key={blog.id}
+          >
             <Paper elevation={1} sx={{ borderRadius: "6px" }}>
               <Stack direction={"row"} spacing={2}>
                 <Box

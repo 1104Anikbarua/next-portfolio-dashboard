@@ -54,9 +54,9 @@ const ManageBlog = () => {
       }
       values["id"] = blog?.id;
       values["content"] = content;
-      console.log(values);
+      // console.log(values);
       const res = await setBlog(values).unwrap();
-      console.log(res);
+      // console.log(res);
       if (res?.response?.success) {
         toast.success(res?.response?.message, {
           duration: 2000,
@@ -68,18 +68,18 @@ const ManageBlog = () => {
       console.log(error);
     }
   };
-  const defaultValues = {
-    title: blog?.title,
-  };
 
   useEffect(() => {
     setContent(blog?.content);
-  }, [isGetBlogLoading, isGetBlogFetching, isSetBlogLoading]);
-
+  }, [blog]);
+  console.log({ isGetBlogLoading, isGetBlogFetching, isSetBlogLoading });
+  const defaultValues = {
+    title: blog?.title,
+  };
   return (
     <Container>
       <Box width={"100%"} py={10}>
-        {isGetBlogLoading || isSetBlogLoading ? (
+        {isGetBlogLoading || isSetBlogLoading || isGetBlogFetching ? (
           <SkeletonForm category={"blog"} type={"form"} />
         ) : (
           <Paper
