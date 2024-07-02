@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./baseApi/baseApi";
+import blogReducer from "./features/blog/blogSlice";
 
 export const store = configureStore({
   reducer: {
+    blog: blogReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

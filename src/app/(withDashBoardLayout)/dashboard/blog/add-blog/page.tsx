@@ -18,7 +18,8 @@ import uploadImage from "@/utlis/uploadImage";
 import { useAddBlogMutation } from "@/redux/features/blog/blogApi";
 import JoditEditor from "jodit-react";
 import PPFileUpload from "@/components/Ui/Form/PPFileUpload";
-//
+import Title from "@/components/Ui/Title/Title";
+//component start
 const AddBlog = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
@@ -85,18 +86,8 @@ const AddBlog = () => {
             defaultValues={defaultValues}
             resolver={zodResolver(createBlogValidation)}
           >
-            <Typography
-              component={"h3"}
-              variant="h3"
-              sx={{
-                fontSize: { xs: "24px" },
-                fontWeight: { xs: 600, sm: 800 },
-                opacity: "0.7",
-                my: 5,
-              }}
-            >
-              Add a Blog
-            </Typography>
+            <Title title={"Add a Blog"} />
+
             <Stack direction={"column"} rowGap={2} justifyContent={"center"}>
               {/* destination  */}
               <PPTextField
