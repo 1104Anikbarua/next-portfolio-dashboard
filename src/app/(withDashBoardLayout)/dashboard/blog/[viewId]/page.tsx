@@ -82,6 +82,7 @@ export const MediaCard = ({
   blog: IBlog | undefined;
   user: IUser | undefined;
 }) => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [copied, setCopied] = React.useState(false);
   const [launch, setLaunch] = React.useState(false);
@@ -112,6 +113,7 @@ export const MediaCard = ({
           id: toastId,
         });
       }
+      router.push("/dashboard/blog");
     } catch (error) {
       console.log(error);
     }
@@ -322,6 +324,7 @@ import {
 import Link from "next/link";
 import ConfirmDialog from "@/components/Ui/Dialog/Dialog";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 export function FadeMenu({
   anchorEl,
   setAnchorEl,

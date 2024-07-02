@@ -33,11 +33,11 @@ export const generateMenutItems = () => {
     //   path: `blog/manage-blog`,
     //   icon: SystemUpdateAltIcon,
     // },
-    {
-      title: "Delete Blog",
-      path: `blog/delete-blog`,
-      icon: DeleteSweepIcon,
-    },
+    // {
+    //   title: "Delete Blog",
+    //   path: `blog/delete-blog`,
+    //   icon: DeleteSweepIcon,
+    // },
     {
       title: "Add Education",
       path: `education/add-education`,
