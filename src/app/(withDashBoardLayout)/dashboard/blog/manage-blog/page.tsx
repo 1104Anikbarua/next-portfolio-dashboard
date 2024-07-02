@@ -1,6 +1,14 @@
 "use client";
 import { useGetBlogsQuery } from "@/redux/features/blog/blogApi";
-import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import ShareIcon from "@mui/icons-material/Share";
@@ -144,7 +152,12 @@ export const MediaCard = ({
           </Stack>
           {/* share in social network  */}
         </Stack>
-        <FadeMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} open={open} />
+        <FadeMenu
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+          open={open}
+          imgUrl={blog.imageUrl}
+        />
       </CardContent>
 
       <Box
@@ -165,7 +178,7 @@ export const MediaCard = ({
         />
       </Box>
       <CardContent>
-        <div dangerouslySetInnerHTML={{ __html: blog?.content }} />
+        <Box dangerouslySetInnerHTML={{ __html: blog?.content }} />
       </CardContent>
       <CardActions>
         <Button size="small" onClick={() => handleRedirect(blog.id)}>
@@ -227,34 +240,33 @@ export const ResponsiveTypography = ({ blog }: { blog: IBlog }) => {
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import RedditIcon from "@mui/icons-material/Reddit";
+import PinterestIcon from "@mui/icons-material/Pinterest";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import {
+  LinkedinShareButton,
+  PinterestShareButton,
+  RedditShareButton,
+} from "react-share";
 export function FadeMenu({
   anchorEl,
   setAnchorEl,
   open,
+  imgUrl,
 }: {
   anchorEl: HTMLElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   open: boolean;
+  imgUrl: string;
 }) {
-  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
   const handleClose = () => {
     setAnchorEl(null);
   };
   console.log(anchorEl);
+  const url = "https://next-assignment-9-client.vercel.app/";
   return (
     <div>
-      {/* <Button
-        id="fade-button"
-        aria-controls={open ? "fade-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-        Dashboard
-      </Button> */}
       <Menu
         id="fade-menu"
         MenuListProps={{
@@ -265,9 +277,50 @@ export function FadeMenu({
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {/* copy link menu start  */}
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <ContentCopy fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Copy Link</ListItemText>
+        </MenuItem>
+        {/* copy link menu end  */}
+        {/* share on facebook start  */}
+        <MenuItem>
+          <LinkedinShareButton url={url}>
+            <Stack direction={"row"}>
+              <ListItemIcon>
+                <LinkedInIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Share on LinkedIn</ListItemText>
+            </Stack>
+          </LinkedinShareButton>
+        </MenuItem>
+        {/* share on facebook end */}
+        {/* share on pinterest start  */}
+        <MenuItem onClick={handleClose}>
+          <PinterestShareButton url={url} media={imgUrl}>
+            <Stack direction={"row"}>
+              <ListItemIcon>
+                <PinterestIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Share on Pinterest</ListItemText>
+            </Stack>
+          </PinterestShareButton>
+        </MenuItem>
+        {/* share on pinterest start  */}
+        {/* share on reddit  */}
+        <MenuItem onClick={handleClose}>
+          <RedditShareButton url={url}>
+            <Stack direction={"row"}>
+              <ListItemIcon>
+                <RedditIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Share on Reddit</ListItemText>
+            </Stack>
+          </RedditShareButton>
+        </MenuItem>
+        {/* share on reddit  */}
       </Menu>
     </div>
   );
