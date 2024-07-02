@@ -22,11 +22,13 @@ export const blogApi = baseApi.injectEndpoints({
     //get blog start here
     getBlog: build.query({
       query: ({ id }) => {
+        console.log(id);
         return {
           url: `/blogs/${id}`,
         };
       },
       transformResponse: (response: IReduxResponse<IBlog>) => {
+        console.log(response);
         return {
           response: response?.data,
         };

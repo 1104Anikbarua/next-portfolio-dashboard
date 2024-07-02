@@ -12,21 +12,27 @@ import BorderAllIcon from "@mui/icons-material/BorderAll";
 export const generateMenutItems = () => {
   // store menuitems based on role
   const menuItems: IMenuItems[] = [
+    // {
+    //   title: "Dashboard",
+    //   path: ``,
+    //   icon: DashboardIcon,
+    // },
     {
-      title: "Dashboard",
+      title: "Blog",
       path: `blog`,
       icon: DashboardIcon,
     },
+
     {
       title: "Add Blog",
       path: `blog/add-blog`,
       icon: AddCircleOutlineIcon,
     },
-    {
-      title: "Manage Blog",
-      path: `blog/manage-blog`,
-      icon: SystemUpdateAltIcon,
-    },
+    // {
+    //   title: "Manage Blog",
+    //   path: `blog/manage-blog`,
+    //   icon: SystemUpdateAltIcon,
+    // },
     {
       title: "Delete Blog",
       path: `blog/delete-blog`,
