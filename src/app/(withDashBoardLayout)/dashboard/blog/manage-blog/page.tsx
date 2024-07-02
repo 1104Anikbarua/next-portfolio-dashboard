@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -76,6 +77,14 @@ export const MediaCard = ({
   user: IUser | undefined;
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
   const open = Boolean(anchorEl);
   //redirect to the edit blog route
   const router = useRouter();
@@ -150,16 +159,21 @@ export const MediaCard = ({
               <ShareIcon />
             </IconButton>
           </Stack>
-          {/* share in social network  */}
+          {/* share in social network end */}
         </Stack>
+        {/* social netwrok dropdown  */}
         <FadeMenu
           anchorEl={anchorEl}
           setAnchorEl={setAnchorEl}
           open={open}
           imgUrl={blog.imageUrl}
+          handleCopy={handleCopy}
+          copied={copied}
+          setCopied={setCopied}
         />
+        {/* social netwrok dropdown  */}
       </CardContent>
-
+      {/* blog content start  */}
       <Box
         sx={{
           position: "relative",
@@ -180,12 +194,15 @@ export const MediaCard = ({
       <CardContent>
         <Box dangerouslySetInnerHTML={{ __html: blog?.content }} />
       </CardContent>
+      {/* blog content end  */}
+      {/* blog edit and delte option  */}
       <CardActions>
         <Button size="small" onClick={() => handleRedirect(blog.id)}>
           Edit
         </Button>
         <Button size="small">Delete</Button>
       </CardActions>
+      {/* blog edit and delte option  */}
     </Card>
   );
 };
@@ -254,16 +271,22 @@ export function FadeMenu({
   setAnchorEl,
   open,
   imgUrl,
+  handleCopy,
+  copied,
+  setCopied,
 }: {
   anchorEl: HTMLElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   open: boolean;
   imgUrl: string;
+  handleCopy: (text: string) => void;
+  copied: boolean;
+  setCopied: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log(anchorEl);
+
   const url = "https://next-assignment-9-client.vercel.app/";
   return (
     <div>
@@ -278,12 +301,19 @@ export function FadeMenu({
         TransitionComponent={Fade}
       >
         {/* copy link menu start  */}
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy Link</ListItemText>
-        </MenuItem>
+        <Tooltip title={copied ? "Copied!" : "Copy"}>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              handleCopy(url);
+            }}
+          >
+            <ListItemIcon>
+              <ContentCopy fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Copy Link</ListItemText>
+          </MenuItem>
+        </Tooltip>
         {/* copy link menu end  */}
         {/* share on facebook start  */}
         <MenuItem>
