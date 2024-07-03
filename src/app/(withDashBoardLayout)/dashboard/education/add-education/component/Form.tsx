@@ -4,6 +4,7 @@ import WrapperForm from "@/components/Ui/Form/WrapperForm";
 import PPTextField from "@/components/Ui/Form/PPTextField";
 import Title from "@/components/Ui/Title/Title";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, FieldValues } from "react-hook-form";
 const EducationForm = ({
   submitHandler,
   zodValidationSchema,
@@ -11,11 +12,11 @@ const EducationForm = ({
   title,
   submitButtonText,
 }: {
-  submitHandler: any;
+  submitHandler: SubmitHandler<FieldValues>;
   zodValidationSchema?: any;
-  defaultValues: any;
-  title: any;
-  submitButtonText: any;
+  defaultValues?: Record<string, unknown>;
+  title: string;
+  submitButtonText: string;
 }) => {
   return (
     <Container>
@@ -34,7 +35,7 @@ const EducationForm = ({
           {/* add a trip form  start*/}
           <WrapperForm
             onSubmit={submitHandler}
-            defaultValues={defaultValues}
+            defaultValues={defaultValues ? defaultValues : undefined}
             resolver={
               zodValidationSchema ? zodResolver(zodValidationSchema) : undefined
             }
