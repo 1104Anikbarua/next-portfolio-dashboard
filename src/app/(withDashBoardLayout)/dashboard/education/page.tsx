@@ -1,9 +1,12 @@
 "use client";
 import React from "react";
-import { Container, Typography, Stack, Paper } from "@mui/material";
+import { Container, Typography, Stack, Paper, Button } from "@mui/material";
 import { useGetEducationsQuery } from "@/redux/features/education/educationApi";
 import Title from "@/components/Ui/Title/Title";
 import Link from "next/link";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
+import EducationForm from "./add-education/component/Form";
 //
 const Educations = () => {
   // get all blogs api
@@ -93,6 +96,30 @@ const Educations = () => {
                   </Typography>
                 </Stack>
                 {/* cgpa end here  */}
+                <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                  <Button
+                    sx={{ height: "40px" }}
+                    color="info"
+                    startIcon={<EditNoteIcon />}
+                  >
+                    <Link
+                      style={{ textDecoration: "none", color: "white" }}
+                      // href={`/dashboard/blog/${blog?.id}/edit`}
+                      href={""}
+                    >
+                      Edit
+                    </Link>
+                  </Button>
+                  <Button
+                    sx={{ height: "40px" }}
+                    // onClick={handleClickOpen}
+                    startIcon={<DeleteSweepIcon />}
+                    color="error"
+                    size="small"
+                  >
+                    Delete
+                  </Button>
+                </Stack>
               </Stack>
             </Paper>
           </Link>
@@ -104,3 +131,18 @@ const Educations = () => {
 };
 
 export default Educations;
+
+export const ManageEducation = () => {
+  const defaultValues = {};
+  const handleEditEducation = () => {};
+  const createEducationValidationSchema = {};
+  return (
+    <EducationForm
+      defaultValues={defaultValues}
+      submitButtonText={"Submit"}
+      submitHandler={handleEditEducation}
+      title={"Edit Education"}
+      zodValidationSchema={createEducationValidationSchema}
+    />
+  );
+};

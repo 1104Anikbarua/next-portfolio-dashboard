@@ -253,6 +253,7 @@ export const MediaCard = ({
       {/* blog edit and delte option  */}
       {/* confirm delete modal  */}
       <ConfirmDialog
+        title={"Are you sure you want to delete this blog?"}
         launch={launch}
         onClose={handleClose}
         onConfirm={handleConfirm}

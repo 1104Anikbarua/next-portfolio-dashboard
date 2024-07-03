@@ -10,7 +10,9 @@ const ConfirmDialog = ({
   launch,
   onClose,
   onConfirm,
+  title,
 }: {
+  title: string;
   launch: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -25,7 +27,7 @@ const ConfirmDialog = ({
       <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete this blog?
+          {title}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
