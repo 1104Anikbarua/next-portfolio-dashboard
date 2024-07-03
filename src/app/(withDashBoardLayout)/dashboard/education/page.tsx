@@ -28,6 +28,7 @@ const Educations = () => {
   // get all blogs api
   const { data, isLoading, error } = useGetEducationsQuery({});
   const educations = data?.response;
+  console.log(educations);
   // get all blogs api
 
   // delete education api
@@ -41,6 +42,7 @@ const Educations = () => {
       duration: 2000,
       position: "top-center",
     });
+    console.log(id);
     try {
       const res = await removeEducation(id).unwrap();
       console.log(res);
@@ -150,6 +152,7 @@ const Educations = () => {
                 </Typography>
               </Stack>
               {/* cgpa end here  */}
+              {/* edit education or remove education  */}
               <Stack direction={"row"} alignItems={"center"} spacing={1}>
                 <Button
                   sx={{ height: "40px" }}
@@ -169,6 +172,15 @@ const Educations = () => {
                   Delete
                 </Button>
               </Stack>
+              {/* remove education  */}
+              {/* confirm delete modal  */}
+              <ConfirmDialog
+                title={"Are you sure you want to delete this education?"}
+                launch={launch}
+                onClose={handleCloseDialog}
+                onConfirm={() => handleConfirm(education?.id)}
+              />
+              {/* confirm delete modal  */}
             </Stack>
             {/* edit education  */}
             <ManageEducation
@@ -177,15 +189,6 @@ const Educations = () => {
               title=""
               education={education}
             />
-            {/* remove education  */}
-            {/* confirm delete modal  */}
-            <ConfirmDialog
-              title={"Are you sure you want to delete this blog?"}
-              launch={launch}
-              onClose={handleCloseDialog}
-              onConfirm={handleConfirm}
-            />
-            {/* confirm delete modal  */}
           </Paper>
         ))}
       </Stack>
