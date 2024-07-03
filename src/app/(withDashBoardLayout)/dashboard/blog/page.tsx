@@ -6,12 +6,12 @@ import { useGetMeQuery } from "@/redux/features/user/userApi";
 import Image from "next/image";
 import Link from "next/link";
 import ManageBlogSkeleton from "@/components/Ui/Skeleton/ManageBlogSkeleton";
+import Title from "@/components/Ui/Title/Title";
 
 const Blogs = () => {
   // get all blogs api
   const { data, isLoading, error } = useGetBlogsQuery({});
   const blogs = data?.response;
-
   // get all blogs api
   //get me api
   const {
@@ -33,19 +33,7 @@ const Blogs = () => {
   return (
     <Container>
       {/* component title start */}
-      <Typography
-        component={"h3"}
-        variant="h3"
-        sx={{
-          fontSize: { xs: "24px" },
-          fontWeight: { xs: 600, sm: 800 },
-          opacity: "0.7",
-          my: 5,
-          textAlign: "center",
-        }}
-      >
-        All Blogs
-      </Typography>
+      <Title title={"All Blogs"} align="center" />
       {/* component title end */}
       {/* blog card start  */}
       <Stack rowGap={2}>

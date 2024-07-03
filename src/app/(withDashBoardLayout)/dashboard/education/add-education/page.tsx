@@ -71,7 +71,7 @@ const AddEducation = () => {
             defaultValues={defaultValues}
             resolver={zodResolver(createEducationValidationSchema)}
           >
-            <Title title={"Add an Education"} />
+            <Title title={"Add an Education"} align="left" />
 
             <Stack direction={"column"} rowGap={2} justifyContent={"center"}>
               {/* Education name */}

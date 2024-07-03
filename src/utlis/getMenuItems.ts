@@ -17,17 +17,6 @@ export const generateMenutItems = () => {
     //   path: ``,
     //   icon: DashboardIcon,
     // },
-    {
-      title: "Blog",
-      path: `blog`,
-      icon: DashboardIcon,
-    },
-
-    {
-      title: "Add Blog",
-      path: `blog/add-blog`,
-      icon: AddCircleOutlineIcon,
-    },
     // {
     //   title: "Manage Blog",
     //   path: `blog/manage-blog`,
@@ -38,6 +27,21 @@ export const generateMenutItems = () => {
     //   path: `blog/delete-blog`,
     //   icon: DeleteSweepIcon,
     // },
+    {
+      title: "Blog",
+      path: `blog`,
+      icon: DashboardIcon,
+    },
+    {
+      title: "Add Blog",
+      path: `blog/add-blog`,
+      icon: AddCircleOutlineIcon,
+    },
+    {
+      title: "Education",
+      path: `education`,
+      icon: DashboardIcon,
+    },
     {
       title: "Add Education",
       path: `education/add-education`,

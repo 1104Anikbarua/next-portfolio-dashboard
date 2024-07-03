@@ -86,7 +86,7 @@ const AddBlog = () => {
             defaultValues={defaultValues}
             resolver={zodResolver(createBlogValidation)}
           >
-            <Title title={"Add a Blog"} />
+            <Title title={"Add a Blog"} align="center" />
 
             <Stack direction={"column"} rowGap={2} justifyContent={"center"}>
               {/* destination  */}
