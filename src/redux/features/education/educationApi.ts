@@ -71,7 +71,7 @@ export const educationApi = baseApi.injectEndpoints({
     }),
     //update education ends here
     // remove education start here
-    removeeducation: build.mutation({
+    removeEducation: build.mutation({
       query: (id) => {
         console.log(id);
         return {
@@ -94,7 +94,7 @@ export const educationApi = baseApi.injectEndpoints({
 export const {
   useAddEducationMutation,
   useGetEducationsQuery,
-  useRemoveeducationMutation,
+  useRemoveEducationMutation,
   useSetEducationMutation,
   useGetEducationQuery,
 } = educationApi;

@@ -11,12 +11,16 @@ const EducationForm = ({
   defaultValues,
   title,
   submitButtonText,
+  setOpen,
+  open,
 }: {
   submitHandler: SubmitHandler<FieldValues>;
   zodValidationSchema?: any;
   defaultValues?: Record<string, unknown>;
   title: string;
   submitButtonText: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
 }) => {
   return (
     <Container>
@@ -64,7 +68,11 @@ const EducationForm = ({
               {/* Cgpa */}
               <PPTextField name="cgpa" label="Cgpa or gpa" placeholder="Cgpa" />
 
-              <Button type="submit" color="success">
+              <Button
+                onClick={() => setOpen(!open)}
+                type="submit"
+                color="success"
+              >
                 {submitButtonText}
               </Button>
             </Stack>

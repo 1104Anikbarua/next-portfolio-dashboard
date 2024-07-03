@@ -2,6 +2,7 @@
 import React from "react";
 import { Container, Typography, Stack, Paper, Button } from "@mui/material";
 import {
+  useGetEducationQuery,
   useGetEducationsQuery,
   useSetEducationMutation,
 } from "@/redux/features/education/educationApi";
@@ -35,11 +36,6 @@ const Educations = () => {
       {/* blog card start  */}
       <Stack rowGap={2}>
         {educations?.map((education) => (
-          // <Link
-          //   href={`education/${education.id}`}
-          //   style={{ textDecoration: "none" }}
-          // key={education.id}
-          // >
           <Paper
             key={education.id}
             elevation={1}
@@ -113,12 +109,6 @@ const Educations = () => {
                   startIcon={<EditNoteIcon />}
                   onClick={() => setIsModalOpen(!isModalOpen)}
                 >
-                  {/* <Link
-                      style={{ textDecoration: "none", color: "white" }}
-                      href={`/dashboard/blog/${blog?.id}/edit`}
-                      
-                    >
-                    </Link> */}
                   Edit
                 </Button>
                 <Button
@@ -132,13 +122,17 @@ const Educations = () => {
                 </Button>
               </Stack>
             </Stack>
+            {/* edit education  */}
+            <ManageEducation
+              open={isModalOpen}
+              setOpen={setIsModalOpen}
+              title=""
+              education={education}
+            />
           </Paper>
-          // </Link>
         ))}
       </Stack>
       {/* blog card end */}
-      {/* edit education  */}
-      <ManageEducation open={isModalOpen} setOpen={setIsModalOpen} title="" />
     </Container>
   );
 };
@@ -148,22 +142,31 @@ export default Educations;
 import { useState } from "react";
 import { toast } from "sonner";
 import { SubmitHandler, FieldValues } from "react-hook-form";
+import { IEducation } from "@/types/education.types";
 
 type IModalProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
+  education: IEducation;
 };
-export const ManageEducation = ({ open, setOpen, title }: IModalProps) => {
-  // const defaultValues = {};
+export const ManageEducation = ({
+  open,
+  setOpen,
+  title,
+  education,
+}: IModalProps) => {
+  // edit education by id api
   const [editEducation, { isLoading }] = useSetEducationMutation();
+  // edit education by id api
   // manage education event handler
   const handleEditEducation: SubmitHandler<FieldValues> = async (values) => {
     const toastId = toast.loading("please wait this may take a few minutes", {
       duration: 2000,
       position: "top-center",
     });
-    console.log(values);
+
+    values["cgpa"] = Number(values.cgpa);
     try {
       const res = await editEducation(values).unwrap();
       console.log(res);
@@ -178,14 +181,18 @@ export const ManageEducation = ({ open, setOpen, title }: IModalProps) => {
       console.log(error);
     }
   };
-  const createEducationValidationSchema = {};
+  // edit eduction defaultValues
+  const defaultValues = education ? education : {};
+
   return (
     <MyModal open={open} setOpen={setOpen} title={title}>
       <EducationForm
-        submitButtonText={"Submit"}
+        open={open}
+        setOpen={setOpen}
+        defaultValues={defaultValues}
+        submitButtonText={"Edit"}
         submitHandler={handleEditEducation}
         title={"Edit Education"}
-        zodValidationSchema={createEducationValidationSchema}
       />
     </MyModal>
   );
