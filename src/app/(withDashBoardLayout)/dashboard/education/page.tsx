@@ -42,10 +42,9 @@ const Educations = () => {
       duration: 2000,
       position: "top-center",
     });
-    console.log(id);
     try {
       const res = await removeEducation(id).unwrap();
-      console.log(res);
+
       if (res?.response?.success) {
         toast.success(res?.response?.message, {
           duration: 2000,
