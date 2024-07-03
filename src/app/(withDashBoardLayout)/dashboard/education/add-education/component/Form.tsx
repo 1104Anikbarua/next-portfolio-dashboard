@@ -5,6 +5,8 @@ import PPTextField from "@/components/Ui/Form/PPTextField";
 import Title from "@/components/Ui/Title/Title";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, FieldValues } from "react-hook-form";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setIsModalOpen } from "@/redux/features/blog/blogSlice";
 const EducationForm = ({
   submitHandler,
   zodValidationSchema,
@@ -19,9 +21,10 @@ const EducationForm = ({
   defaultValues?: Record<string, unknown>;
   title: string;
   submitButtonText: string;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  open?: boolean;
 }) => {
+  const dispatch = useAppDispatch();
   return (
     <Container>
       <Box width={"100%"} py={10}>
@@ -69,7 +72,7 @@ const EducationForm = ({
               <PPTextField name="cgpa" label="Cgpa or gpa" placeholder="Cgpa" />
 
               <Button
-                onClick={() => setOpen(!open)}
+                onClick={() => dispatch(setIsModalOpen(false))}
                 type="submit"
                 color="success"
               >

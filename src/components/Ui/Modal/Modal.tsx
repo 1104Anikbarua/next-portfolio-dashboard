@@ -6,6 +6,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setIsModalOpen } from "@/redux/features/blog/blogSlice";
 
 //interface
 // 161611hm
@@ -28,15 +30,18 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function MyModal({
   open = false,
-  setOpen,
+  // setOpen,
   title,
   children,
   sx,
 }: IModalProps) {
+  // dispatch the state
+  const dispatch = useAppDispatch();
   //close the modal
   const handleClose = () => {
-    setOpen(false);
+    dispatch(setIsModalOpen(false));
   };
+  //close the modal
 
   return (
     <React.Fragment>

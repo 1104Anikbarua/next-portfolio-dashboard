@@ -89,14 +89,14 @@ export const MediaCard = ({
 
   const [removeBlog, { isLoading }] = useRemoveBlogMutation();
   // open modal
-  const handleClickOpen = () => {
+  const handleOpenDialog = () => {
     setLaunch(true);
   };
   // close modal
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setLaunch(false);
   };
-
+  // blog remove handler
   const handleConfirm = async () => {
     // Handle delete action here
     const toastId = toast.loading("please wait this may take a few minutes", {
@@ -242,7 +242,7 @@ export const MediaCard = ({
           </Link>
         </Button>
         <Button
-          onClick={handleClickOpen}
+          onClick={handleOpenDialog}
           startIcon={<DeleteSweepIcon />}
           color="error"
           size="small"
@@ -250,12 +250,12 @@ export const MediaCard = ({
           Delete
         </Button>
       </CardActions>
-      {/* blog edit and delte option  */}
+      {/* blog edit and delete option  */}
       {/* confirm delete modal  */}
       <ConfirmDialog
         title={"Are you sure you want to delete this blog?"}
         launch={launch}
-        onClose={handleClose}
+        onClose={handleCloseDialog}
         onConfirm={handleConfirm}
       />
       {/* confirm delete modal  */}

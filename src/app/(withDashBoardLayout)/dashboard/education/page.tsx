@@ -2,24 +2,72 @@
 import React from "react";
 import { Container, Typography, Stack, Paper, Button } from "@mui/material";
 import {
-  useGetEducationQuery,
   useGetEducationsQuery,
+  useRemoveEducationMutation,
   useSetEducationMutation,
 } from "@/redux/features/education/educationApi";
 import Title from "@/components/Ui/Title/Title";
-import Link from "next/link";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import EducationForm from "./add-education/component/Form";
 import MyModal from "@/components/Ui/Modal/Modal";
+import { setIsModalOpen, setLaunch } from "@/redux/features/blog/blogSlice";
 //
 const Educations = () => {
+  // get launch slice value
+  const launch = useAppSelector((state: RootState) => state.blog.launch);
   // modal close open & close state
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isModalOpen = useAppSelector(
+    (state: RootState) => state.blog.isModalOpen
+  );
+  // *Dispatch*
+  const dispatch = useAppDispatch();
+  // get launch slice value
+
+  const router = useRouter();
   // get all blogs api
   const { data, isLoading, error } = useGetEducationsQuery({});
   const educations = data?.response;
   // get all blogs api
+
+  // delete education api
+  const [removeEducation, { isLoading: isRemoveEducationLoading }] =
+    useRemoveEducationMutation();
+  // delete education api
+
+  // remove education handler
+  const handleConfirm = async (id: string) => {
+    const toastId = toast.loading("please wait this may take a few minutes", {
+      duration: 2000,
+      position: "top-center",
+    });
+    try {
+      const res = await removeEducation(id).unwrap();
+      console.log(res);
+      if (res?.response?.success) {
+        toast.success(res?.response?.message, {
+          duration: 2000,
+          position: "top-center",
+          id: toastId,
+        });
+      }
+      router.push("/dashboard/education");
+    } catch (error) {
+      console.log(error);
+    }
+    dispatch(setLaunch(false));
+  };
+  // remove education handler end
+  // open modal start
+  const handleOpenDialog = () => {
+    dispatch(setLaunch(true));
+  };
+  // open modal end
+  // close modal start
+  const handleCloseDialog = () => {
+    dispatch(setLaunch(false));
+  };
+  // close modal end
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -107,13 +155,13 @@ const Educations = () => {
                   sx={{ height: "40px" }}
                   color="info"
                   startIcon={<EditNoteIcon />}
-                  onClick={() => setIsModalOpen(!isModalOpen)}
+                  onClick={() => dispatch(setIsModalOpen(!isModalOpen))}
                 >
                   Edit
                 </Button>
                 <Button
                   sx={{ height: "40px" }}
-                  // onClick={handleClickOpen}
+                  onClick={handleOpenDialog}
                   startIcon={<DeleteSweepIcon />}
                   color="error"
                   size="small"
@@ -129,6 +177,15 @@ const Educations = () => {
               title=""
               education={education}
             />
+            {/* remove education  */}
+            {/* confirm delete modal  */}
+            <ConfirmDialog
+              title={"Are you sure you want to delete this blog?"}
+              launch={launch}
+              onClose={handleCloseDialog}
+              onConfirm={handleConfirm}
+            />
+            {/* confirm delete modal  */}
           </Paper>
         ))}
       </Stack>
@@ -138,11 +195,14 @@ const Educations = () => {
 };
 
 export default Educations;
-
-import { useState } from "react";
+// manage education start
 import { toast } from "sonner";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import { IEducation } from "@/types/education.types";
+import ConfirmDialog from "@/components/Ui/Dialog/Dialog";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { RootState } from "@/redux/store";
 
 type IModalProps = {
   open: boolean;
@@ -197,3 +257,4 @@ export const ManageEducation = ({
     </MyModal>
   );
 };
+// manage education end

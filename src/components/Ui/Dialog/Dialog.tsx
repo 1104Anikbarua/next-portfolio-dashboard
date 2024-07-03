@@ -15,7 +15,7 @@ const ConfirmDialog = ({
   title: string;
   launch: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: any;
 }) => {
   return (
     <Dialog
