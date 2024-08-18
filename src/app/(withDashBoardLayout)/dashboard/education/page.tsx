@@ -82,7 +82,7 @@ const Educations = () => {
       {/* component title start */}
       <Title title={"All Educations"} align="center" />
       {/* component title end */}
-      {/* blog card start  */}
+      {/* education card start  */}
       <Stack rowGap={2}>
         {educations?.map((education) => (
           <Paper
@@ -191,7 +191,7 @@ const Educations = () => {
           </Paper>
         ))}
       </Stack>
-      {/* blog card end */}
+      {/* education card end */}
     </Container>
   );
 };

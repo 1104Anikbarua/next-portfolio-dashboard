@@ -12,6 +12,7 @@ const getUserToken = () => {
   const token = getToken(authKey);
   if (token) {
     const decoded = getDecodedToken(token) as IUser;
+    console.log(decoded);
     return {
       ...decoded,
       role: decoded?.role?.toLowerCase(),
