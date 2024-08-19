@@ -252,7 +252,7 @@ const ManageSkill = ({ open, setOpen, title, skill }: ISkills) => {
         open={open}
         setOpen={setOpen}
         defaultValues={defaultValues}
-        submitButtonText={"Edit"}
+        submitButtonText={"Edit Skill"}
         submitHandler={handleEditSkill}
         title={"Edit Skill"}
       />
